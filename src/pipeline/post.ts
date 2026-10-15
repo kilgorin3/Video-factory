@@ -30,7 +30,8 @@ async function ffmpeg(args: string[]) {
 export async function masterAudio(input: string, output: string) {
   log.step("Mastering audio to -14 LUFS");
   const target = "I=-14:TP=-1.0:LRA=11";
-  const { stderr } = await ffmpeg(["-hide_banner", "-i", input, "-af", `loudnorm=${target}:print_format=json`, "-f", "null", "-"]);
+  // Audio only, explicit codec: Remotion's bundled ffmpeg has no default video encoder for the null muxer.
+  const { stderr } = await ffmpeg(["-hide_banner", "-i", input, "-vn", "-af", `loudnorm=${target}:print_format=json`, "-c:a", "pcm_s16le", "-f", "null", "-"]);
   const json = stderr.slice(stderr.lastIndexOf("{"), stderr.lastIndexOf("}") + 1);
   let filter: string | null = `loudnorm=${target}`;
   try {
