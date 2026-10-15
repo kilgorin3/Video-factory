@@ -1,0 +1,145 @@
+# Second example: code, line chart, timeline and comparison templates on a light theme,
+# narrated with OpenAI TTS (cheap) instead of ElevenLabs.
+#   npm run vf -- build projects/example-binary-search --mock --preset draft
+
+title: Why Binary Search Is Absurdly Fast
+slug: binary-search-explained
+
+scope:
+  audience: beginner programmers
+  level: beginner
+  targetMinutes: 1.5
+  tone: friendly, precise, a little nerdy
+
+style:
+  theme: paper
+  imageStyle: warm editorial illustration, paper texture, navy and vermilion accents, no text
+  transition: slide
+  captions: { enabled: true, style: highlight }
+
+voice:
+  provider: openai
+  voiceId: sage
+  instructions: Friendly computer science teacher. Clear, upbeat, unhurried. Slight emphasis on numbers.
+
+providers:
+  image: fal
+  imageModel: fal-ai/recraft/v3/text-to-image
+
+scenes:
+  - type: title
+    kicker: Algorithms, simply
+    title: Why Binary Search Is Absurdly Fast
+    subtitle: Twenty guesses to find one name in a million
+    narration: >
+      Find one name in a list of a million, using at most twenty guesses. Here's the trick that makes it possible.
+    visual:
+      source: ai-image
+      prompt: an enormous old phone book split open in the middle, a magnifying glass hovering over the crease
+
+  - type: comparison
+    heading: Two ways to search
+    left:
+      title: Linear search
+      tone: bad
+      points:
+        - text: Checks items one by one
+          cue: l1
+        - text: Up to 1,000,000 checks
+          cue: l2
+    right:
+      title: Binary search
+      tone: good
+      points:
+        - text: Halves the range every step
+          cue: r1
+        - text: At most 20 checks
+          cue: r2
+        - text: Needs a sorted list
+          cue: r3
+    narration: >
+      The obvious way, linear search, [[l1]] checks every item in turn, so a million items can take [[l2]] a million checks.
+      Binary search [[r1]] looks at the middle, throws away the half that can't contain the answer, and repeats.
+      That takes [[r2]] at most twenty checks. The one catch: [[r3]] the list has to be sorted.
+
+  - type: code
+    title: binary_search.py
+    language: python
+    code: |
+      def binary_search(items, target):
+          lo, hi = 0, len(items) - 1
+          while lo <= hi:
+              mid = (lo + hi) // 2
+              if items[mid] == target:
+                  return mid
+              if items[mid] < target:
+                  lo = mid + 1
+              else:
+                  hi = mid - 1
+          return -1
+    highlights:
+      - lines: "2"
+        cue: range
+      - lines: "4"
+        cue: mid
+      - lines: "5-6"
+        cue: found
+      - lines: "7-10"
+        cue: halve
+    narration: >
+      In code, we [[range]] track the low and high ends of the range still in play.
+      Each loop, we [[mid]] pick the middle. If it's the target, [[found]] we're done.
+      Otherwise [[halve]] we move one end past the middle, and the range is cut in half.
+
+  - type: chart
+    chart: line
+    title: Worst-case checks as the list grows
+    data:
+      - label: "10"
+        value: 4
+        cue: a
+      - label: "1 thousand"
+        value: 10
+        cue: b
+      - label: "1 million"
+        value: 20
+        cue: c
+      - label: "1 billion"
+        value: 30
+        cue: d
+    highlight: "1 billion"
+    narration: >
+      Because every step halves the problem, the work grows painfully slowly.
+      Ten items, [[a]] four checks. A thousand, [[b]] ten. A million, [[c]] twenty.
+      A billion items, [[d]] just thirty checks.
+
+  - type: timeline
+    heading: A simple idea that's hard to get right
+    events:
+      - date: "1946"
+        title: First mention
+        text: John Mauchly describes it in the Moore School Lectures
+        cue: t1
+      - date: "1960"
+        title: Any length
+        text: Derrick Lehmer publishes a version for lists of any size
+        cue: t2
+      - date: "2006"
+        title: The overflow bug
+        text: Java's version found to break on huge arrays
+        cue: t3
+    narration: >
+      The idea was [[t1]] described back in 1946, and [[t2]] a version that works for any list size appeared in 1960.
+      Yet in [[t3]] 2006, Java's own binary search turned out to have a bug: adding low and high could overflow on enormous arrays.
+
+  - type: outro
+    title: Halve it, then halve it again
+    cta: Next up, how sorting makes this possible.
+    narration: >
+      Halve the problem, then halve it again. Subscribe, and next time we'll see how lists get sorted in the first place.
+
+youtube:
+  description: >
+    Binary search finds one item in a million in at most twenty steps. See how it works, the code, and the famous bug that hid in Java for years.
+  tags: [binary search, algorithms, computer science, python, big o, coding for beginners]
+  thumbnailText: 20 Guesses

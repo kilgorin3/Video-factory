@@ -1,0 +1,67 @@
+# Your video spec. Edit by hand or let `vf plan` write the scenes from brief.md.
+# Reference: docs/SPEC.md
+
+title: __TITLE__
+
+format:
+  aspect: "16:9"   # 16:9 | 9:16 (Shorts) | 1:1
+  fps: 30
+
+scope:
+  audience: ""
+  level: beginner   # beginner | intermediate | advanced
+  targetMinutes: 5
+  tone: warm, clear, curious
+  objectives: []
+
+style:
+  theme: __THEME__  # vf themes
+  # colors: { primary: "#7C9CFF", accent: "#FFB86B" }
+  # fonts: { heading: Space Grotesk, body: Inter }
+  imageStyle: clean editorial illustration, soft lighting, cohesive palette, no text
+  transition: fade
+  captions: { enabled: true, style: highlight }
+  # logo: assets/logo.png
+
+voice:
+  provider: elevenlabs   # elevenlabs | openai | command | mock
+  model: eleven_multilingual_v2
+  speed: 1
+
+music:
+  source: none   # none | file | elevenlabs
+  # prompt: calm ambient electronic, soft piano, instrumental
+  # file: assets/music.mp3
+
+providers:
+  image: fal     # fal | openai | pexels | placeholder
+  video: fal     # fal | pexels | placeholder
+
+pronunciations: {}
+
+scenes:
+  - type: title
+    title: __TITLE__
+    subtitle: One line on what the viewer gets
+    narration: Replace this with your hook. Promise the payoff in the first ten seconds.
+
+  - type: bullets
+    heading: Three things to know
+    points:
+      - text: First point
+        cue: one
+      - text: Second point
+        cue: two
+      - text: Third point
+        cue: three
+    narration: >
+      Here's the first [[one]] idea, the second [[two]] idea, and the third [[three]] idea.
+
+  - type: outro
+    title: Thanks for watching
+    cta: Subscribe for the next one.
+    narration: Thanks for watching. See you in the next one.
+
+youtube:
+  tags: []
+  privacy: private

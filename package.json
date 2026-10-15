@@ -1,0 +1,49 @@
+{
+  "name": "video-factory",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Script in, YouTube-ready educational video out. Spec-driven pipeline: Claude storyboard, ElevenLabs voice, fal.ai visuals, Remotion motion graphics, ffmpeg mastering.",
+  "type": "module",
+  "bin": {
+    "vf": "bin/vf.mjs"
+  },
+  "scripts": {
+    "vf": "tsx src/cli.ts",
+    "mcp": "tsx src/mcp/server.ts",
+    "studio": "remotion studio src/remotion/index.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "demo": "tsx src/cli.ts build projects/example-photosynthesis --mock --preset draft",
+    "stills": "tsx scripts/stills.ts"
+  },
+  "engines": {
+    "node": ">=20.11"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.134.0",
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "@remotion/bundler": "4.0.535",
+    "@remotion/cli": "4.0.535",
+    "@remotion/fonts": "4.0.535",
+    "@remotion/google-fonts": "4.0.535",
+    "@remotion/paths": "4.0.535",
+    "@remotion/renderer": "4.0.535",
+    "@remotion/transitions": "4.0.535",
+    "commander": "^15.0.0",
+    "music-metadata": "^12.2.1",
+    "prism-react-renderer": "^2.4.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "4.0.535",
+    "tsx": "^4.23.15",
+    "yaml": "^2.9.1",
+    "zod": "4.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.4"
+  }
+}

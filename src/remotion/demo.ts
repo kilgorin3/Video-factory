@@ -1,0 +1,60 @@
+import { THEMES } from "../spec/themes";
+import type { Timeline } from "../timeline/types";
+
+/** Tiny built-in timeline so Remotion Studio opens even before a project is built. */
+export const DEMO_TIMELINE: Timeline = {
+  version: 1,
+  meta: { title: "Video Factory", slug: "demo", fps: 30, width: 1920, height: 1080, durationInFrames: 240 },
+  theme: THEMES.midnight,
+  scenes: [
+    {
+      id: "intro",
+      index: 0,
+      type: "title",
+      startFrame: 0,
+      durationInFrames: 120,
+      transition: null,
+      narration: null,
+      words: [],
+      cues: {},
+      visual: null,
+      chapter: null,
+      chapterContext: null,
+      background: null,
+      data: { type: "title", title: "Video Factory", subtitle: "Run `vf preview <project>` to load a real build", kicker: "Demo", narration: "", sfx: [] },
+    },
+    {
+      id: "points",
+      index: 1,
+      type: "bullets",
+      startFrame: 105,
+      durationInFrames: 135,
+      transition: { type: "fade", durationInFrames: 15 },
+      narration: null,
+      words: [],
+      cues: {},
+      visual: null,
+      chapter: null,
+      chapterContext: null,
+      background: null,
+      data: {
+        type: "bullets",
+        heading: "Script in, video out",
+        points: [
+          { text: "Write or plan a video.yaml", cue: undefined },
+          { text: "vf build renders it", cue: undefined },
+          { text: "vf publish uploads it", cue: undefined },
+        ],
+        numbered: true,
+        focus: true,
+        narration: "",
+        sfx: [],
+      },
+    },
+  ],
+  audio: { narration: [], music: null, sfx: [], speech: [] },
+  captions: { enabled: false, style: "highlight", position: "bottom", maxChars: 38, words: [] },
+  chrome: { progressBar: true, chapterLabel: true, logo: null },
+  chapters: [],
+  thumbnail: { title: "Script in, video out", subtitle: null, image: null },
+};

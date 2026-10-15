@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npx tsx src/cli.ts validate projects/example-photosynthesis
+
+  # Proves the full pipeline renders, with mock providers (no API keys, no spend).
+  render:
+    runs-on: ubuntu-latest
+    needs: check
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx remotion browser ensure
+      - run: npx tsx src/cli.ts build projects/example-photosynthesis --mock --preset draft --scenes 1-4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mock-render
+          path: projects/example-photosynthesis/build/out/*.mp4
+          retention-days: 7

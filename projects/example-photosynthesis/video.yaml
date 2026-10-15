@@ -1,0 +1,215 @@
+# Example project: shows most scene templates. Build it with no API keys:
+#   npm run vf -- build projects/example-photosynthesis --mock --preset draft
+# Then with real providers (needs .env keys):
+#   npm run vf -- build projects/example-photosynthesis
+
+title: How Plants Turn Light Into Food
+slug: photosynthesis-explained
+
+format:
+  aspect: "16:9"
+  fps: 30
+
+scope:
+  audience: curious teens and adults, no biology background
+  level: beginner
+  targetMinutes: 2
+  tone: warm, clear, a little playful
+  objectives:
+    - Explain what photosynthesis takes in and gives out
+    - Describe the two stages in plain language
+    - Understand why it matters for every food chain
+
+style:
+  theme: ocean
+  colors:
+    accent: "#F6C453"
+  imageStyle: soft flat vector illustration, gentle gradients, teal and warm gold palette, clean shapes, no text
+  transition: fade
+  captions:
+    enabled: true
+    style: highlight
+
+voice:
+  provider: elevenlabs
+  # voiceId: run `npm run vf -- voices` to list yours
+  model: eleven_multilingual_v2
+  speed: 1
+
+music:
+  source: elevenlabs
+  prompt: calm curious ambient electronic, soft plucks, warm pads, 85 bpm, instrumental, no drums in the intro
+  volume: 0.2
+  duckTo: 0.06
+
+providers:
+  image: fal
+  video: fal
+
+pronunciations:
+  ATP: A T P
+  NADPH: N A D P H
+  chloroplasts: KLOR-oh-plasts
+
+scenes:
+  - type: title
+    kicker: Biology in 2 minutes
+    title: How Plants Turn Light Into Food
+    subtitle: The chemistry that feeds almost every living thing on Earth
+    narration: >
+      Every breath you take and every bite you eat traces back to one quiet chemical trick.
+      Let's see how a leaf turns sunlight into sugar.
+    visual:
+      source: ai-image
+      prompt: a single glowing green leaf catching sunbeams, dark teal background, particles of light
+
+  - type: kinetic
+    emphasis: [sunlight, water, air]
+    narration: >
+      A plant builds itself out of sunlight, water, and air. That's it. No soil snacks required.
+
+  - type: chapter
+    chapter: The recipe
+    title: The recipe
+    subtitle: What goes in, what comes out
+    narration: First, the ingredients.
+
+  - type: split
+    heading: Inside every leaf
+    body: Millions of tiny green factories called chloroplasts.
+    side: right
+    points:
+      - text: Chlorophyll absorbs red and blue light
+        cue: absorb
+      - text: Green light bounces back, so leaves look green
+        cue: green
+    narration: >
+      Zoom into a leaf and you'll find millions of chloroplasts.
+      Inside them, a pigment called chlorophyll [[absorb]] soaks up red and blue light,
+      and [[green]] reflects the green, which is why leaves look green to us.
+    visual:
+      source: ai-image
+      prompt: cutaway illustration of a plant cell with oval green chloroplasts, stacked thylakoid discs
+
+  - type: comparison
+    heading: The trade
+    left:
+      title: Goes in
+      tone: neutral
+      points:
+        - text: Carbon dioxide from the air
+          cue: co2
+        - text: Water from the roots
+          cue: water
+        - text: Energy from sunlight
+          cue: light
+    right:
+      title: Comes out
+      tone: good
+      points:
+        - text: Glucose, the plant's fuel
+          cue: glucose
+        - text: Oxygen, released to the air
+          cue: oxygen
+    narration: >
+      The plant takes in [[co2]] carbon dioxide, [[water]] water, and [[light]] the energy in sunlight.
+      It gives back [[glucose]] glucose, a sugar it can burn or build with, and [[oxygen]] oxygen, which it simply lets go.
+
+  - type: definition
+    term: Photosynthesis
+    phonetic: /ˌfoʊtoʊˈsɪnθəsɪs/
+    partOfSpeech: noun
+    definition: The process plants, algae and some bacteria use to turn light energy into chemical energy stored in sugar.
+    example: "Photo means light. Synthesis means putting together."
+    narration: >
+      So photosynthesis literally means putting together with light.
+
+  - type: chapter
+    chapter: Two stages
+    title: Two stages
+    subtitle: A solar panel and a sugar factory
+    narration: It happens in two connected stages.
+
+  - type: steps
+    heading: From photon to sugar
+    steps:
+      - title: Capture light
+        text: Chlorophyll absorbs photons
+        cue: s1
+      - title: Split water
+        text: Releases oxygen as a by-product
+        cue: s2
+      - title: Charge batteries
+        text: Makes ATP and NADPH
+        cue: s3
+      - title: Build sugar
+        text: Calvin cycle fixes CO2 into glucose
+        cue: s4
+    narration: >
+      Stage one is the light reactions. Chlorophyll [[s1]] captures light,
+      and that energy is used to [[s2]] split water, which is where the oxygen comes from.
+      The energy gets packed into [[s3]] two molecular batteries, ATP and NADPH.
+      Stage two, the Calvin cycle, spends those batteries to [[s4]] build sugar from carbon dioxide.
+
+  - type: image
+    caption:
+      title: The Calvin cycle
+      text: No light needed, just the batteries from stage one
+    narration: >
+      The Calvin cycle doesn't need light directly, which is why it's sometimes called the light-independent reactions.
+    visual:
+      source: ai-video
+      prompt: stylized molecular conveyor loop inside a chloroplast, carbon atoms joining into sugar rings
+      motion: slow orbiting camera, molecules drifting along a circular path
+
+  - type: chapter
+    chapter: Why it matters
+    title: Why it matters
+    narration: Why should you care?
+
+  - type: stat
+    value: 50
+    suffix: "%"
+    label: of Earth's oxygen comes from the ocean
+    context: Mostly from microscopic phytoplankton doing photosynthesis
+    source: NOAA
+    narration: >
+      Around half of the oxygen we breathe comes from the ocean, made by tiny drifting phytoplankton.
+
+  - type: chart
+    chart: bar
+    title: Where photosynthesis happens
+    unit: "%"
+    highlight: Ocean
+    source: Field et al., Science (1998)
+    data:
+      - label: Ocean
+        value: 46
+        cue: ocean
+      - label: Tropical rainforests
+        value: 17
+        cue: forest
+      - label: All other land
+        value: 37
+        cue: land
+    narration: >
+      Measured by how much carbon gets fixed each year, the [[ocean]] ocean does nearly half the work.
+      [[forest]] Tropical rainforests add about a sixth, and [[land]] every other kind of land makes up the rest.
+
+  - type: quote
+    quote: The energy in every meal you have ever eaten was sunlight first.
+    narration: >
+      So the next time you eat, remember: that energy was sunlight first.
+
+  - type: outro
+    title: Thanks for watching
+    cta: Next up, how cells burn that sugar for energy.
+    narration: If this made photosynthesis click, subscribe. Next time, we'll follow that sugar into your cells.
+
+youtube:
+  title: How Plants Turn Light Into Food (Photosynthesis in 2 Minutes)
+  description: >
+    Photosynthesis explained simply: what goes in, what comes out, the two stages, and why half your oxygen comes from the ocean.
+  tags: [photosynthesis, biology, science explained, chloroplast, calvin cycle, education]
+  thumbnailText: Plants Eat Sunlight
+  thumbnailScene: 1
